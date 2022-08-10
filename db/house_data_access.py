@@ -107,3 +107,25 @@ def get_houses_by_region_code(region_code):
     finally:
         if conn is not None:
             conn.close()
+
+def update_house_close_date(house_code, close_date):
+    sql = "UPDATE house SET close_date = %s WHERE house_code = %s"
+    conn = None
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cursor = conn.cursor()
+        # execute the UPDATE statement
+        cursor.execute(sql, (house_code, close_date))
+        # commit the changes to the database
+        conn.commit()
+        # close communication with the database
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()

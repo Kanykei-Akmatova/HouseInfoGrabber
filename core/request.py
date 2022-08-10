@@ -1,5 +1,4 @@
 import traceback
-import random
 
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException, WebDriverException
@@ -9,11 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 
-from random_user_agent.user_agent import UserAgent
-from random_user_agent.params import SoftwareName, OperatingSystem
-
 from time import sleep
-from random_proxy import RandomProxyList
 
 class Request:
     selenium_retries = 0
@@ -21,31 +16,11 @@ class Request:
     def __init__(self, url):
         self.url = url           
 
-    def get_selenium_res(self, class_name):
+    def get_page_content_by_url(self, proxy, user_agent, class_name):
         try:
-            software_names = [SoftwareName.CHROME.value]
-            operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]
-            user_agent_rotator = UserAgent(software_names = software_names, operating_systems = operating_systems, limit=100)
-        
-            user_agent = user_agent_rotator.get_random_user_agent()
-            
-            prox_list = RandomProxyList("CA").get_proxy_list()
-            p = random.choice(prox_list)
-            PROXY = p['ip'] + ":" + p['port']
-    
             prox = Proxy()
             prox.proxy_type = ProxyType.MANUAL
-            prox.http_proxy = PROXY
-            
-            # webdriver.DesiredCapabilities.FIREFOX['proxy'] = {
-            #     "httpProxy":PROXY,
-            #     "ftpProxy":PROXY,
-            #     "sslProxy":PROXY,
-            #     "noProxy":None,
-            #     "proxyType":"MANUAL",
-            #     "class":"org.openqa.selenium.Proxy",
-            #     "autodetect":False
-            # }
+            prox.http_proxy = proxy
 
             capabilities = webdriver.DesiredCapabilities.CHROME
             prox.add_to_capabilities(capabilities)
@@ -70,10 +45,9 @@ class Request:
                 page_html = browser.page_source
                 browser.close()
 
-                f = open("test-card.html", "a")
-                f.write(page_html)
-                f.close()
-
+                with open("test-card.html", "w", encoding="utf-8") as f:
+                  f.write(page_html)
+               
                 return page_html
         except (TimeoutException, WebDriverException):
             print(traceback.format_exc())
