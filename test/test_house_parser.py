@@ -7,7 +7,7 @@ from core.house_parser import get_house_list
 f = open("./test/card.html", encoding="utf8")
 content = f.read()
 
-house_list = get_house_list(content)
+house_list = get_house_list(content, "test")
 index = 1
             
 for h in house_list:

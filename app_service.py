@@ -17,13 +17,20 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+proxy_list = get_proxy_list("CA")
+# logging.info(f"proxy-list : {json.dumps(proxy_list, indent=4)}")
 
 url_list = ['https://www.realtor.ca/on/ottawa/blackburn-hamlet/real-estate']
-proxy_list = get_proxy_list("CA")
 
-logging.info(f"proxy-list : {json.dumps(proxy_list, indent=4)}")
-            
-for url in url_list:
+with open('region-list.json', 'r') as region_list_file:
+    region_list_json=region_list_file.read()
+
+region_list = json.loads(region_list_json)
+
+for region in region_list["region-list"]:
+    url = region["region-url"]            
+    region_code = region["region-code"]        
+    logging.info(f"Working on {region_code} region.")
     prox = random.choice(proxy_list)
     proxy = prox['ip'] + ":" + prox['port']
 
@@ -34,6 +41,7 @@ for url in url_list:
             
     logging.info(f"Loading url:{url} proxy:{proxy} user-agent:{user_agent}")
 
-    result = Request(url).get_page_content_by_url(proxy, user_agent, 'listingCardBody')
-    house_list = get_house_list(result)
-    process_house_list(house_list)
+    content = Request(url).get_page_content_by_url(proxy, user_agent, 'listingCardBody', region_code)
+    house_list = get_house_list(content, region_code)
+    print(len(house_list))
+    process_house_list(region_code, house_list)

@@ -4,7 +4,7 @@ import hashlib
 from bs4 import BeautifulSoup
 from core.house import House
 
-def get_house_list(content):
+def get_house_list(content, region_code):
     house_list = []
     soup = BeautifulSoup(content, 'html.parser') 
 
@@ -31,7 +31,7 @@ def get_house_list(content):
             if listing_card_icon_text == "Bathrooms":
                 bathrooms =listing_card_icon_num
 
-        house = House(house_cdoe, address_text, price_text, bedrooms, bathrooms)
+        house = House(region_code, house_cdoe, address_text, price_text, bedrooms, bathrooms)
 
         if(house.address is not None and house.price is not None):
             house_list.append(house)

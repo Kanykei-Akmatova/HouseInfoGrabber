@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS house
     close_date date,
     bedrooms character varying(64) NOT NULL,
     bathrooms character varying(64) NOT NULL,
+    region_code character varying(64) NOT NULL,
     CONSTRAINT house_pkey PRIMARY KEY (house_code)
 );
 

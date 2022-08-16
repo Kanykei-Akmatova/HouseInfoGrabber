@@ -17,7 +17,7 @@ from db.price_data_access import insert_price
 #     ]
 # )
 
-def process_house_list(listed_house_list):  
+def process_house_list(region_code, listed_house_list):  
     index = 0
 
     db_house_dictionary = dict()
@@ -48,7 +48,7 @@ def process_house_list(listed_house_list):
         else:
             # the listed house is not in our db
             logging.info(f"New house : {house_code} processing...")
-            insert_house(house_code, open_date, close_date, house)
+            insert_house(region_code, house_code, open_date, close_date, house)
             insert_price(house_code, house_price, price_date)            
 
         logging.info(f"Processed house : {house_code}")        
@@ -56,7 +56,7 @@ def process_house_list(listed_house_list):
     logging.info(f"Done {index} houses.")
 
     # process not listed anymore houses
-    for db_house in db_house_dictionary:
-        if listed_house_list_dic[db_house] is None:
-            logging.info(f"Update of not listed anymore house {db_house}...")
-            update_house_close_date(db_house, datetime.date.today())
+    for db_house_code in db_house_dictionary:
+        if db_house_dictionary[db_house_code].region_code == region_code and db_house_code not in listed_house_list_dic:
+            logging.info(f"Update of not listed anymore house {db_house_code}...")
+            update_house_close_date(db_house_code, datetime.date.today())

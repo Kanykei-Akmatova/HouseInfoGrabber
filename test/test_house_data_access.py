@@ -9,7 +9,7 @@ from db.price_data_access import insert_price
 f = open("./test/card.html", encoding="utf8")
 content = f.read()
 
-house_list = get_house_list(content)
+house_list = get_house_list(content, "test")
 index = 1
             
 for h in house_list:
@@ -21,6 +21,6 @@ for h in house_list:
     close_date = datetime.datetime(1900, 1, 1)
     price_date =  datetime.date.today()
     
-    insert_house(house_code, open_date, close_date, h)
+    insert_house("region_code", house_code, open_date, close_date, h)
     insert_price(house_code, int(h.price.replace('$', '').replace(",","")), price_date)
     index +=1
