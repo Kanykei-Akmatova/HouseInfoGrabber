@@ -1,0 +1,24 @@
+{
+    "region-list" : [
+        {
+            "region-code" : "blackburn-hamlet",
+            "region-url" : "https://www.realtor.ca/on/ottawa/blackburn-hamlet/real-estate"
+        },
+        {
+            "region-code" : "richmond",
+            "region-url" : "https://www.realtor.ca/on/ottawa/richmond/real-estate"
+        },
+        {
+            "region-code" : "crystal-bay-lakeview-park",
+            "region-url" : "https://www.realtor.ca/on/ottawa/crystal-bay-lakeview-park/real-estate"
+        },
+        {
+            "region-code" : "manotick",
+            "region-url" : "https://www.realtor.ca/on/ottawa/manotick/real-estate"
+        },
+        {
+            "region-code" : "greely",
+            "region-url" : "https://www.realtor.ca/on/ottawa/greely/real-estate"
+        }
+    ]
+}
