@@ -1,8 +1,9 @@
 import json
 import logging
 import random
+import time
 
-from core.house_parser import get_house_list
+from core.house_parser import get_house_list, get_pages_count
 from core.house_service import process_house_list
 from core.random_proxy import get_proxy_list  
 from core.request import Request
@@ -19,8 +20,6 @@ logging.basicConfig(
 )
 proxy_list = get_proxy_list("CA")
 # logging.info(f"proxy-list : {json.dumps(proxy_list, indent=4)}")
-
-url_list = ['https://www.realtor.ca/on/ottawa/blackburn-hamlet/real-estate']
 
 with open('region-list.json', 'r') as region_list_file:
     region_list_json=region_list_file.read()
@@ -41,7 +40,13 @@ for region in region_list["region-list"]:
             
     logging.info(f"Loading url:{url} proxy:{proxy} user-agent:{user_agent}")
 
-    content = Request(url).get_page_content_by_url(proxy, user_agent, 'listingCardBody', region_code)
-    house_list = get_house_list(content, region_code)
-    print(len(house_list))
-    process_house_list(region_code, house_list)
+    pages = Request(url).get_page_content_by_url(proxy, user_agent, 'listingCardBody', region_code)
+
+    logging.info(f"Pages to process:{len(pages)}")
+    for content in pages:        
+        house_list = get_house_list(content, region_code)      
+        process_house_list(region_code, house_list)
+
+    sleep_for = 60;
+    logging.info(f"Sleeping for {sleep_for} seconds...")
+    time.sleep(sleep_for)

@@ -88,15 +88,22 @@ def get_houses_by_region_code(region_code):
         params = config()
         conn = psycopg2.connect(**params)
         cursor = conn.cursor()
-        cursor.execute("""SELECThouse_code, address, open_date, close_date, bedrooms, bathrooms 
-                       FROM house
-                       WHERE region_Code = %s""", (region_code,))
+        cursor.execute("""SELECT region_code, h.house_code, address, open_date, close_date, bedrooms, bathrooms, p.amount
+                        FROM house h 
+                        LEFT JOIN (
+                                    SELECT house_code, amount, price_date
+                                    FROM price a
+                                    WHERE price_date = (SELECT MAX(price_date) AS price_date FROM price b WHERE b.house_code = a.house_code)
+                                    GROUP BY house_code, amount, price_date
+                                ) p ON h.house_code = p.house_code                        
+                        WHERE region_code = %s
+                        """, (region_code,))
         
         house_list = []
         record = cursor.fetchone()
                 
         while record is not None:
-            house_list.append(record[0], record[1], record[2], record[3], record[4], record[5])
+            house_list.append(House(record[0], record[1], record[2], record[7], record[5], record[6])) 
             record = cursor.fetchone()
 
         cursor.close()
