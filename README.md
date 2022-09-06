@@ -2,7 +2,7 @@
 House information grabber from realtor dot ca
 
 ## Setup
-Please create a PostgreSQL database and run house-DDL.sql to have data storage.
+Please create a PostgreSQL database and run **house-DDL.sql** to have data storage.
 
 ## How to grab data
 1. Set DB connection in **databse.ini to** your data base.
