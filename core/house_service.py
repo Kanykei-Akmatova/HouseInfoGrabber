@@ -1,3 +1,4 @@
+from math import floor
 import sys
 import datetime
 import hashlib
@@ -37,8 +38,8 @@ def process_house_list(region_code, listed_house_list):
         
         # the listed house is our db
         if db_house_dictionary and house_code in db_house_dictionary: 
-            logging.info(f"Existing house : {house_code} with price {db_house_dictionary[house_code].price} and the new price {house_price} processing...")                
-            if int(db_house_dictionary[house_code].price) != int(house_price):
+            if floor(db_house_dictionary[house_code].price) != floor(house_price):
+                logging.info(f"Existing house : {house_code} with price {floor(db_house_dictionary[house_code].price)} and the new price {floor(house_price)} processing...")                            
                 insert_price(house_code, house_price, price_date)
         else:
             # the listed house is not in our db
