@@ -6,7 +6,7 @@ import logging
 
 sys.path.append("..")
 
-from db.house_data_access import get_houses_by_region_code, insert_house, update_house_close_date
+from db.house_data_access import get_houses_by_region_code, insert_house, update_house_not_in_listing_date
 from db.price_data_access import insert_price
 
 def process_house_list(region_code, listed_house_list):  
@@ -30,9 +30,9 @@ def process_house_list(region_code, listed_house_list):
         house = listed_house_list_dic[listed_house_code]        
         house_code = hashlib.sha256(house.address.encode('utf-8')).hexdigest()
         house_price = int(house.price.replace('$', '').replace(",",""))
-        open_date =  datetime.date.today() 
+        record_date =  datetime.date.today() 
         price_date =  datetime.date.today()
-        close_date = datetime.datetime(1900, 1, 1)
+        not_in_listing_date = datetime.datetime(1900, 1, 1)
 
         logging.info(f"Starting procesing {index}.{house.address} : {house.price}$ [bedrooms : {house.bedrooms} bathrooms : {house.bathrooms}] house-code:{house_code}")
         
@@ -44,7 +44,7 @@ def process_house_list(region_code, listed_house_list):
         else:
             # the listed house is not in our db
             logging.info(f"New house : {house_code} processing...")
-            insert_house(region_code, house_code, open_date, close_date, house)
+            insert_house(region_code, house_code, record_date, not_in_listing_date, house)
             insert_price(house_code, house_price, price_date)            
 
         logging.info(f"Processed house : {house_code}")        
@@ -55,4 +55,4 @@ def process_house_list(region_code, listed_house_list):
     # for db_house_code in db_house_dictionary:
     #     if db_house_dictionary[db_house_code].region_code == region_code and db_house_code not in listed_house_list_dic:
     #         logging.info(f"Update of not listed anymore house {db_house_code}...")
-    #         update_house_close_date(db_house_code, datetime.date.today())
+    #         update_house_not_in_listing_date(db_house_code, datetime.date.today())

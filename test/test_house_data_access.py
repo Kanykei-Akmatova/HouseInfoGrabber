@@ -17,10 +17,10 @@ for h in house_list:
     print(house_item.format(index, h.address, h.price, h.bedrooms, h.bathrooms))
     
     house_code = hashlib.sha256(h.address.encode('utf-8')).hexdigest()        
-    open_date =  datetime.date.today()
+    record_date =  datetime.date.today()
     close_date = datetime.datetime(1900, 1, 1)
     price_date =  datetime.date.today()
     
-    insert_house("region_code", house_code, open_date, close_date, h)
+    insert_house("region_code", house_code, record_date, close_date, h)
     insert_price(house_code, int(h.price.replace('$', '').replace(",","")), price_date)
     index +=1

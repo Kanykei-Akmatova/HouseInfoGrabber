@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS house
 (
     house_code character varying(128) NOT NULL,
     address character varying(256) NOT NULL,
-    open_date date,
-    close_date date,
+    record_date date,
+    not_in_listing_date date,
     bedrooms character varying(64) NOT NULL,
     bathrooms character varying(64) NOT NULL,
     region_code character varying(64) NOT NULL,
