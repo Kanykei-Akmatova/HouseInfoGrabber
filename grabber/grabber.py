@@ -3,12 +3,14 @@ import logging
 import random
 import time
 
-from core.house_parser import get_house_list, get_pages_count
-from core.house_service import process_house_list
+from core.house_parser import get_house_list
 from core.random_proxy import get_proxy_list  
+from core.house_service import process_house_list
 from core.request import Request
+
 from random_user_agent.user_agent import UserAgent
 from random_user_agent.params import SoftwareName, OperatingSystem
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -42,10 +44,13 @@ for region in region_list["region-list"]:
 
     pages = Request(url).get_page_content_by_url(proxy, user_agent, 'listingCardBody', region_code)
 
-    logging.info(f"Pages to process:{len(pages)}")
-    for content in pages:        
-        house_list = get_house_list(content, region_code)      
-        process_house_list(region_code, house_list)
+    house_list = [] 
+    logging.info(f"Pages to process {len(pages)}")
+    for content in pages: 
+        house_list.extend(get_house_list(content, region_code))
+    
+    logging.info(f"Houses to process {len(house_list)} in {region_code} region")    
+    process_house_list(region_code, house_list)
 
     sleep_for = 60;
     logging.info(f"Sleeping for {sleep_for} seconds...")

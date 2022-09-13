@@ -17,6 +17,6 @@ Please create a PostgreSQL database and run **house-DDL.sql** to have data stora
     ]
 }
 ```
-3. Run ```python grabber.py``` .
+3. Run ```python grabber.py``` from grabber folder.
 4. Run **statistic.sql** to see basic house statistic.
 

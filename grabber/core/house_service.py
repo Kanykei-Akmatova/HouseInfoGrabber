@@ -4,9 +4,11 @@ import datetime
 import hashlib
 import logging
 
+from db.house_data_access import update_house_not_in_listing_date
+
 sys.path.append("..")
 
-from db.house_data_access import get_houses_by_region_code, insert_house, update_house_not_in_listing_date
+from db.house_data_access import get_houses_by_region_code, insert_house
 from db.price_data_access import insert_price
 
 def process_house_list(region_code, listed_house_list):  
@@ -38,7 +40,7 @@ def process_house_list(region_code, listed_house_list):
         
         # the listed house is our db
         if db_house_dictionary and house_code in db_house_dictionary: 
-            if floor(db_house_dictionary[house_code].price) != floor(house_price):
+            if int(floor(db_house_dictionary[house_code].price)) != int(floor(house_price)):
                 logging.info(f"Existing house : {house_code} with price {floor(db_house_dictionary[house_code].price)} and the new price {floor(house_price)} processing...")                            
                 insert_price(house_code, house_price, price_date)
         else:
@@ -52,7 +54,7 @@ def process_house_list(region_code, listed_house_list):
     logging.info(f"Done {index} houses.")
 
     # process not listed anymore houses
-    # for db_house_code in db_house_dictionary:
-    #     if db_house_dictionary[db_house_code].region_code == region_code and db_house_code not in listed_house_list_dic:
-    #         logging.info(f"Update of not listed anymore house {db_house_code}...")
-    #         update_house_not_in_listing_date(db_house_code, datetime.date.today())
+    for db_house_code in db_house_dictionary:
+        if db_house_code not in listed_house_list_dic:
+            logging.info(f"Update not listed anymore house {db_house_code}...")
+            update_house_not_in_listing_date(db_house_code, datetime.date.today())
