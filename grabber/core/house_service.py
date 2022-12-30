@@ -4,12 +4,10 @@ import datetime
 import hashlib
 import logging
 
-from db.house_data_access import update_house_not_in_listing_date
-
 sys.path.append("..")
 
-from db.house_data_access import get_houses_by_region_code, insert_house
-from db.price_data_access import insert_price
+from db.house_data_access import get_houses_by_region_code, insert_house, update_house_not_in_listing_date
+from db.price_data_access import insert_price, insert_relisted_house
 
 def process_house_list(region_code, listed_house_list):  
     index = 0
@@ -34,19 +32,24 @@ def process_house_list(region_code, listed_house_list):
         house_price = int(house.price.replace('$', '').replace(",",""))
         record_date =  datetime.date.today() 
         price_date =  datetime.date.today()
-        not_in_listing_date = datetime.datetime(1900, 1, 1)
 
-        logging.info(f"Starting procesing {index}.{house.address} : {house.price}$ [bedrooms : {house.bedrooms} bathrooms : {house.bathrooms}] house-code:{house_code}")
+        logging.info(f"Starting procesing {index}. {house.address} : {house.price}$ [bedrooms : {house.bedrooms} bathrooms : {house.bathrooms}] house-code:{house_code}")
         
-        # the listed house is our db
+        # the listed house is in our db
         if db_house_dictionary and house_code in db_house_dictionary: 
             if int(floor(db_house_dictionary[house_code].price)) != int(floor(house_price)):
-                logging.info(f"Existing house : {house_code} with price {floor(db_house_dictionary[house_code].price)} and the new price {floor(house_price)} processing...")                            
+                logging.info(f"*Existing house : {house_code} with the price {floor(db_house_dictionary[house_code].price)} and the new price {floor(house_price)}* processing...")                            
+                insert_price(house_code, house_price, price_date)
+
+            if db_house_dictionary[house_code].not_in_listing_date > datetime.date(1900, 1, 1):
+                logging.info(f"*Relisting house : {house_code}")
+                insert_relisted_house(house_code, house_price, datetime.date.today())
+                update_house_not_in_listing_date(house_code, datetime.datetime(1900, 1, 1))
                 insert_price(house_code, house_price, price_date)
         else:
             # the listed house is not in our db
             logging.info(f"New house : {house_code} processing...")
-            insert_house(region_code, house_code, record_date, not_in_listing_date, house)
+            insert_house(region_code, house_code, record_date, datetime.datetime(1900, 1, 1), house)
             insert_price(house_code, house_price, price_date)            
 
         logging.info(f"Processed house : {house_code}")        

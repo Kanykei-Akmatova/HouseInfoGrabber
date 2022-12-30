@@ -5,4 +5,5 @@ INNER JOIN (SELECT house_code, COUNT(house_code) AS house_code_count
 			GROUP BY house_code) house_code_count ON h.house_code = house_code_count.house_code
 INNER JOIN price p ON h.house_code = p.house_code
 WHERE house_code_count.house_code_count > 1
+  AND h.not_in_listing_date = '1900-01-01'
 ORDER BY region_code, address, price_date DESC

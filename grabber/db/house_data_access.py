@@ -67,7 +67,7 @@ def get_houses():
         record = cursor.fetchone()
                 
         while record is not None:
-            house_list.append(House(record[0], record[1], record[2], "-1", record[5], record[6]))
+            house_list.append(House(record[0], record[1], record[2], "-1", record[5], record[6], record[4]))
             # house_list.append(record[0], record[1], record[2], record[3], record[4], record[5])
             
             record = cursor.fetchone()
@@ -103,7 +103,7 @@ def get_houses_by_region_code(region_code):
         record = cursor.fetchone()
                 
         while record is not None:
-            house_list.append(House(record[0], record[1], record[2], record[7], record[5], record[6])) 
+            house_list.append(House(record[0], record[1], record[2], record[7], record[5], record[6], record[4])) 
             record = cursor.fetchone()
 
         cursor.close()

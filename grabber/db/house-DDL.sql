@@ -20,3 +20,10 @@ CREATE TABLE IF NOT EXISTS price
     amount numeric(10,2) NOT NULL,
     price_date date NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS relisted_house
+(
+    house_code character varying(128) NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    relist_date date NOT NULL
+);

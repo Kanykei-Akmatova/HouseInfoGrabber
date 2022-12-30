@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import datetime
 import hashlib
 from bs4 import BeautifulSoup
 from core.house import House
@@ -33,7 +34,7 @@ def get_house_list(content, region_code):
             if listing_card_icon_text == "Bathrooms":
                 bathrooms =listing_card_icon_num
 
-        house = House(region_code, house_code, address_text, price_text, bedrooms, bathrooms)        
+        house = House(region_code, house_code, address_text, price_text, bedrooms, bathrooms, datetime.datetime(1900, 1, 1))        
 
         if(house.address is not None and house.price is not None):
             house_list.append(house)
@@ -63,7 +64,7 @@ def get_house_list(content, region_code):
             if listing_card_icon_text == "Bathrooms":
                 bathrooms =listing_card_icon_num
 
-        house = House(region_code, house_code, address_text, price_text, bedrooms, bathrooms)
+        house = House(region_code, house_code, address_text, price_text, bedrooms, bathrooms, datetime.datetime(1900, 1, 1))
         
         if(house.address is not None and house.price is not None):
             house_list.append(house)
