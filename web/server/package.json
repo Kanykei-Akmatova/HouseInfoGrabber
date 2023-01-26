@@ -1,10 +1,13 @@
 {
-  "name": "house-stat-server",
+  "name": "house-data-server",
   "version": "1.0.0",
   "description": "This is the server part of house statistic solution",
-  "main": "server.js",
+  "main": "sever.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node ./src/server.ts",
+    "start": "nodemon ./src/server.js",
+    "prod": "npm run build && npm run start"
   },
   "keywords": [
     "house",
@@ -14,16 +17,19 @@
     "express",
     "postgresql"
   ],
-  "author": "kanykei akmatova",
+  "author": "Kanykei Akmatova",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "helmet": "^6.0.0",
+    "mongoose": "^6.9.0",
     "pg": "^8.8.0",
     "postgres": "^3.2.4",
-    "sequelize": "^6.21.4"
+    "sequelize": "^6.21.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
