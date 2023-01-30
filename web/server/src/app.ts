@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as _ from 'lodash';
-
+import HouseController from './controller/house.controller';
 import UserController from './controller/users.controller';
 
 // Creates and configures an ExpressJS web server.
@@ -25,6 +25,7 @@ export class App {
     // configure API endpoints.
     private routes(): void {
         this.app.use('/api/user', UserController);
+        this.app.use('/api/house', HouseController);
         this.app.use('*', express.static('public'));
     }
 }
