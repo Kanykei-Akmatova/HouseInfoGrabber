@@ -10,14 +10,6 @@ export class HouseController {
         this.houseService = new HouseService();
         this.init();
     }
-
-	private posts = [
-		{
-			name: 'Marcin',
-			content: 'Dolor sit amet',
-			title: 'Lorem Ipsum',
-		}
-	];
       
 	getHouses = async (request: Request, response: Response) => {
         const houses = await this.houseService.getHouses();
