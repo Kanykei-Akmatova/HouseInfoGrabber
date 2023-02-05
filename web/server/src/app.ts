@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as _ from 'lodash';
 import HouseController from './controller/house.controller';
 import UserController from './controller/users.controller';
+import { config } from "dotenv";
 
 // Creates and configures an ExpressJS web server.
 export class App {
@@ -10,6 +11,8 @@ export class App {
 
     // run configuration methods on the Express instance.
     constructor() {
+        const conf = config();
+        console.log(conf)
         this.app = express();
         this.middleware();
         this.routes();        

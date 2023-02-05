@@ -1,27 +1,44 @@
-import { connect } from "../config/db.config";
-import { House } from "../model/house.model";
+// import { connect } from "../config/db.config";
+import { IHouses } from "../model/house.model";
+import { getPool } from "../db/db";
+import { Pool } from "pg";
 
 export class HouseRepository {
-  private db: any = {};
-  private repository: any;
+  private pool: Pool;
 
   constructor() {
-    this.db = connect();
     // // For Development
     // this.db.sequelize.sync({ force: true }).then(() => {
     //     console.log("Drop and re-sync db.");
     // });
-    this.repository = this.db.sequelize.getRepository(House);
+    //this.repository = this.db.sequelize.getRepository(House);
   }
 
   async getHouses() {
+    // try {
+    //   const houses = await this.repository.findAll();
+    //   console.log("houses:::", houses);
+    //   return houses;
+    // } catch (err) {
+    //   console.log(err);
+    //   return [];
+    // }
     try {
-      const houses = await this.repository.findAll();
-      console.log("houses:::", houses);
-      return houses;
-    } catch (err) {
-      console.log(err);
-      return [];
+      this.pool = getPool();
+      const res = await this.pool.query("SELECT * FROM house");
+      await this.pool.end();
+
+      // res.rows.map((r) => (
+      //   console.log(r.house_code)
+      // ));
+
+      const list = res.rows as IHouses;
+
+      console.log(list);
+
+      return list;
+    } catch (error) {
+      console.error(error);
     }
   }
 

@@ -12,6 +12,10 @@ export class HouseService {
         return await this.HouseRepository.getHouses();
     }
 
+    async getHouses1() {
+        return await this.HouseRepository.getHouses();
+    }
+
     async createHouse(House) {
         return await this.HouseRepository.createHouse(House);
     }

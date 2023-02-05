@@ -1,35 +1,48 @@
-// const { Pool } = require("pg");
+import { Pool } from "pg";
+import { config } from "dotenv";
 
-// const pool = new Pool({
-//   user: "fish_user",
-//   database: "fish",
-//   password: "password",
-//   port: 5432,
-//   host: "localhost",
-// });
+// export class DB {
+//   public pool: Pool;
 
-// module.exports = { pool };
+//   constructor() {
+//     const conf = config();
+//     console.log(conf)
 
-import { Client, Pool } from "pg";
+//     const hostName = process.env.DB_HOST;
+//     const userName = process.env.DB_USER;
+//     const password = process.env.DB_PASSWORD;
+//     const database = process.env.DB_NAME;
+//     const dialect: any = process.env.DIALECT;
 
-export class DB {
-  public pool: Pool;
+//     this.pool = new Pool({
+//       user: userName,
+//       database: database,
+//       password: password,
+//       port: 5432,
+//       host: hostName,
+//     });
+//   }
+// }
 
-  constructor() {
-    const hostName = process.env.HOST;
-    const userName = process.env.USER;
-    const password = process.env.PASSWORD;
-    const database = process.env.DB;
-    const dialect: any = process.env.DIALECT;
+// export default new DB().pool;
 
-    this.pool = new Pool({
-      user: userName,
-      database: database,
-      password: password,
-      port: 5432,
-      host: hostName,
-    });
-  }
-}
+export const getPool = () => {
+  const conf = config();
+  console.log(conf);
 
-export default new DB().pool;
+  const hostName = process.env.DB_HOST;
+  const userName = process.env.DB_USER;
+  const password = process.env.DB_PASSWORD;
+  const database = process.env.DB_NAME;
+  const dialect: any = process.env.DIALECT;
+
+  const pool = new Pool({
+    user: userName,
+    database: database,
+    password: password,
+    port: 5432,
+    host: hostName,
+  });
+
+  return pool;
+};
