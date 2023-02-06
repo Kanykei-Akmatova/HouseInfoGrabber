@@ -1,9 +1,4 @@
-import {
-  IHouseItem,
-  IHousePrice,
-  IHouseRawData,
-  IHousesTrend,
-} from "../model/house.model";
+import { IHouseItem } from "../model/house.model";
 import { HouseRepository } from "../repository/house.repository";
 
 export class HouseService {
@@ -38,7 +33,7 @@ export class HouseService {
         houseMap.set(h.house_code, houseItem);
       }
     });
-    
+
     let houseData = [] as IHouseItem[];
     // filling house list
     houseMap.forEach((e) => {

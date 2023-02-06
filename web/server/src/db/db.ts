@@ -3,7 +3,6 @@ import { config } from "dotenv";
 
 export const getPool = () => {
   const conf = config();
-  console.log(conf);
 
   const hostName = process.env.DB_HOST;
   const userName = process.env.DB_USER;
