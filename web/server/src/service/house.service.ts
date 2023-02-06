@@ -1,31 +1,50 @@
-import { HouseRepository } from '../repository/house.repository';
+import {
+  IHouseItem,
+  IHousePrice,
+  IHouseRawData,
+  IHousesTrend,
+} from "../model/house.model";
+import { HouseRepository } from "../repository/house.repository";
 
 export class HouseService {
+  private HouseRepository: HouseRepository;
 
-    private HouseRepository: HouseRepository;
+  constructor() {
+    this.HouseRepository = new HouseRepository();
+  }
 
-    constructor() {
-        this.HouseRepository = new HouseRepository();
-    }
+  async getHouses() {
+    return await this.HouseRepository.getHouses();
+  }
 
-    async getHouses() {
-        return await this.HouseRepository.getHouses();
-    }
+  async getHousesTrend() {
+    let houses = await this.HouseRepository.getHousesTrend();
 
-    async getHouses1() {
-        return await this.HouseRepository.getHouses();
-    }
+    let houseMap = new Map<string, IHouseItem>();
 
-    async createHouse(House) {
-        return await this.HouseRepository.createHouse(House);
-    }
+    houses.forEach((h) => {
+      if (houseMap.has(h.house_code)) {
+        houseMap
+          .get(h.house_code)
+          .house_price.push({ amount: h.amount, price_date: h.price_date });
+      } else {
+        let houseItem = {
+          house_code: h.house_code,
+          address: h.address,
+          region_code: h.region_code,
+          house_price: [{ amount: h.amount, price_date: h.price_date }],
+        } as IHouseItem;
 
-    async updateHouse(House) {
-        return await this.HouseRepository.updateHouse(House);
-    }
+        houseMap.set(h.house_code, houseItem);
+      }
+    });
+    
+    let houseData = [] as IHouseItem[];
+    // filling house list
+    houseMap.forEach((e) => {
+      houseData.push(e);
+    });
 
-    async deleteHouse(HouseId) {
-        return await this.HouseRepository.deleteHouse(HouseId);
-    }
-
+    return houseData;
+  }
 }

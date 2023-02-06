@@ -12,7 +12,7 @@ export class App {
     // run configuration methods on the Express instance.
     constructor() {
         const conf = config();
-        console.log(conf)
+        
         this.app = express();
         this.middleware();
         this.routes();        

@@ -1,87 +1,45 @@
 // import { connect } from "../config/db.config";
-import { IHouses } from "../model/house.model";
-import { getPool } from "../db/db";
 import { Pool } from "pg";
+import { getPool } from "../db/db";
+import { IHouses, IHousesTrend, IHouseRawData } from "../model/house.model";
 
 export class HouseRepository {
   private pool: Pool;
 
-  constructor() {
-    // // For Development
-    // this.db.sequelize.sync({ force: true }).then(() => {
-    //     console.log("Drop and re-sync db.");
-    // });
-    //this.repository = this.db.sequelize.getRepository(House);
-  }
+  constructor() {}
 
   async getHouses() {
-    // try {
-    //   const houses = await this.repository.findAll();
-    //   console.log("houses:::", houses);
-    //   return houses;
-    // } catch (err) {
-    //   console.log(err);
-    //   return [];
-    // }
     try {
       this.pool = getPool();
       const res = await this.pool.query("SELECT * FROM house");
       await this.pool.end();
 
-      // res.rows.map((r) => (
-      //   console.log(r.house_code)
-      // ));
-
       const list = res.rows as IHouses;
-
-      console.log(list);
-
       return list;
     } catch (error) {
       console.error(error);
     }
   }
 
-  async createHouse(house) {
-    let data = {};
-    // try {
-    //   house.createdate = new Date().toISOString();
-    //   data = await this.repository.create(house);
-    // } catch (err) {
-    //   console.error("Error::" + err);
-    // }
-    return data;
-  }
+  async getHousesTrend() {
+    try {
+      this.pool = getPool();
+      const query = `SELECT region_code, h.house_code, address, p.amount, price_date
+                    FROM house h
+                    INNER JOIN (SELECT house_code, COUNT(house_code) AS house_code_count
+                          FROM price
+                          GROUP BY house_code) house_code_count ON h.house_code = house_code_count.house_code
+                    INNER JOIN price p ON h.house_code = p.house_code
+                    WHERE house_code_count.house_code_count > 1
+                      AND h.not_in_listing_date = '1900-01-01'
+                    ORDER BY region_code, h.house_code, address, price_date DESC`;
 
-  async updateHouse(house) {
-    let data = {};
-    // try {
-    //   house.updateddate = new Date().toISOString();
-    //   data = await this.repository.update(
-    //     { ...house },
-    //     {
-    //       where: {
-    //         id: house.id,
-    //       },
-    //     }
-    //   );
-    // } catch (err) {
-    //   console.error("Error::" + err);
-    // }
-    return data;
-  }
-
-  async deleteHouse(houseId) {
-    let data = {};
-    // try {
-    //   data = await this.repository.destroy({
-    //     where: {
-    //       id: houseId,
-    //     },
-    //   });
-    // } catch (err) {
-    //   console.error("Error::" + err);
-    // }
-    return data;
+      const res = await this.pool.query(query);
+      await this.pool.end();
+      
+      return res.rows as IHouseRawData[];
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
