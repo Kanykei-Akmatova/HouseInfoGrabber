@@ -33,7 +33,7 @@ function onListening(server: http.Server | https.Server) {
         debug('listening or not')
         const addr = server.address();
         const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-        console.log(`Listening -- on ${bind}`);
+        console.log(`Listening on : ${bind}`);
         debug(`Listening on ${bind}`);
     };
 }
