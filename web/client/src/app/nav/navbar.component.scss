@@ -1,0 +1,28 @@
+.nav-link:hover {
+  background-color: silver;
+  color: black;
+}
+
+.nav-link .fa {
+  transition: all 1s;
+}
+
+.nav-link:hover .fa {
+  transform: rotate(360deg);
+}
+
+.nav-link.active {
+  background-color: seagreen;
+}
+
+.nav-link {
+  color: white;
+}
+
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}

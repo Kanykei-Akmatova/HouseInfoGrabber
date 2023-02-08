@@ -1,0 +1,29 @@
+.side-bar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    background-color: seagreen;
+    padding: 3px 0px 3px 3px;
+    height: calc(100vh);
+  }
+  
+  .side-bar div {
+    padding: 8px;
+    font-size: 24px;
+    display: block;  
+  }
+  
+  .body-text {
+    margin-left: 260px;
+    font-size: 18px;
+    width: auto;
+  }
+  
+  @media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body-content {
+      padding-top: 50px;
+    }
+  }
