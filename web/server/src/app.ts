@@ -1,8 +1,10 @@
 import * as express from 'express';
 import * as _ from 'lodash';
+import { config } from "dotenv";
 import HouseController from './controller/house.controller';
 import UserController from './controller/users.controller';
-import { config } from "dotenv";
+import RegionController from './controller/region.controller';
+
 
 // Creates and configures an ExpressJS web server.
 export class App {
@@ -29,6 +31,7 @@ export class App {
     private routes(): void {
         this.app.use('/api/user', UserController);
         this.app.use('/api/house', HouseController);
+        this.app.use('/api/region', RegionController);
         this.app.use('*', express.static('public'));
     }
 }
