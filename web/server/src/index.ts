@@ -1,9 +1,6 @@
 import app from './app';
 import * as http from 'http';
 import * as https from 'https';
-import * as debug from 'debug';
-
-debug('ts-express:server');
 
 const httpPort = process.env.PORT || 5000
 
@@ -30,11 +27,9 @@ function onError(port: number | string | boolean) {
 
 function onListening(server: http.Server | https.Server) {
     return function (): void {
-        debug('listening or not')
         const addr = server.address();
         const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
         console.log(`Listening on : ${bind}`);
-        debug(`Listening on ${bind}`);
     };
 }
 

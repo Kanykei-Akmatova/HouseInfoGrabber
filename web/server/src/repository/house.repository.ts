@@ -1,7 +1,7 @@
 // import { connect } from "../config/db.config";
 import { Pool } from "pg";
 import { getPool } from "../db/db";
-import { IHouses, IHouseRawData } from "../model/house.model";
+import { IHouses, IHouseRawData } from "../../../common/model/house.model";
 
 export class HouseRepository {
   private pool: Pool;

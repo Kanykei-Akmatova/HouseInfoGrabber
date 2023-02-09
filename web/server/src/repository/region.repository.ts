@@ -1,7 +1,7 @@
 // import { connect } from "../config/db.config";
 import { Pool } from "pg";
 import { getPool } from "../db/db";
-import { IRegionStat } from "../model/region.model";
+import { IRegionStat } from "../../../common/model/region.model";
 
 export class RegionRepository {
   private pool: Pool;

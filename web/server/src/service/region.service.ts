@@ -1,4 +1,4 @@
-import { IRegionStat } from "../model/region.model";
+import { IRegionStat } from "../../../common/model/region.model";
 import { RegionRepository } from "../repository/region.repository";
 
 export class RegionService {

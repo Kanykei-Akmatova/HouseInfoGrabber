@@ -1,4 +1,4 @@
-import { IHouseItem } from "../model/house.model";
+import { IHouseItem } from "../../../common/model/house.model";
 import { HouseRepository } from "../repository/house.repository";
 
 export class HouseService {

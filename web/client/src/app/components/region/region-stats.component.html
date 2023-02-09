@@ -1,0 +1,19 @@
+<h4>Number of houses for sale in the region</h4>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Region Code</th>
+        <th scope="col">House Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of regionStats; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ item.region_code }}</td>
+        <td>{{ item.house_count }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
