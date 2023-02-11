@@ -1,25 +1,21 @@
-<a
-  href="/"
-  class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
->
-  <svg class="bi me-2" width="40" height="32"></svg>
-  <span class="fs-4">Housing Data</span>
+<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+  <span class="ms-2 fs-4"> <i class="bi bi-house"></i> Housing Data</span>
 </a>
 <hr />
 <ul class="nav nav-pills flex-column mb-auto">
   <li [routerLinkActive]="['link-active']">
     <a [routerLink]="['/home']" class="nav-link">
-      <i class="fa fa-home"></i><span class="ms-2">Home</span>
+      <i class="bi bi-houses"></i><span class="ms-2">Home</span>
     </a>
   </li>
   <li [routerLinkActive]="['link-active']">
     <a [routerLink]="['/house/trend']" class="nav-link">
-      <i class="fa fa-bar-chart"></i><span class="ms-2">Trend</span>
+      <i class="bi bi-graph-down-arrow"></i><span class="ms-2">Trend</span>
     </a>
   </li>
   <li [routerLinkActive]="['link-active']">
     <a [routerLink]="['/statistic']" class="nav-link">
-      <i class="fa fa-question"></i><span class="ms-2">Statistic</span>
+      <i class="bi bi-clipboard2-data"></i><span class="ms-2">Statistic</span>
     </a>
   </li>  
 </ul>

@@ -1,29 +1,8 @@
-<h2>
-  House trend in <b>{{ regionCode }}</b> region
-</h2>
+<h2>House trend in <b>{{ regionCode }}</b> region</h2>
 <div class="table-responsive">
   <p *ngFor="let house of housesTrend">
     {{ house.address }}
     <br />
     <span *ngFor="let price of house.house_price">{{ price.amount }} : {{ price.price_date }}<br /></span>
   </p>
-  <!-- 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Region Code</th>
-        <th scope="col">House Trend</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of regionStats; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ item.region_code }}</td>
-        <td>
-            <a class="" routerLink="/house/trend/{{ item.region_code }}"><i class="bi bi-graph-down-arrow"></i></a>            
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
 </div>
