@@ -22,13 +22,13 @@ export class HouseController {
 	}
 
     getHousesTrend = async (request: Request, response: Response) => {
-        const housesTrend = await this.houseService.getHousesTrend();
+        const housesTrend = await this.houseService.getHousesTrend(request.params.code);
 		response.send(housesTrend);
 	}
 
 	private init() {
         this.router.get('/fetch', this.getHouses);
-        this.router.get('/trend', this.getHousesTrend);
+        this.router.get('/trend/:code', this.getHousesTrend);
         this.router.get('/list/:code', this.getHousesByRegionCode);
     }
 }

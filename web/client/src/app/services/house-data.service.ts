@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IRegionStat } from '../../../../common/model/region.model';
-import { IHouse } from '../../../../common/model/house.model';
+import { IHouse, IHouseItem } from '../../../../common/model/house.model';
 
 const baseUrl = 'http://localhost:5000/api';
 
@@ -18,5 +18,9 @@ export class HouseDataService {
 
   getHousesByRegion(id: any): Observable<IHouse[]> {
     return this.http.get<IHouse[]>(`${baseUrl}/house/list/${id}`);
+  }
+
+  getHousesTrendByRegion(id: any): Observable<IHouseItem[]> {
+    return this.http.get<IHouseItem[]>(`${baseUrl}/house/trend/${id}`);
   }
 }

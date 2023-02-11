@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HouseDataService } from 'src/app/services/house-data.service';
-import { IHouse } from '../../../../../../common/model/house.model';
+import { IHouseItem } from '../../../../../../common/model/house.model';
 
 @Component({
   selector: 'house-trend',
@@ -9,7 +9,7 @@ import { IHouse } from '../../../../../../common/model/house.model';
   styleUrls: ['./house-trend.component.scss']
 })
 export class HouseTrendComponent implements OnInit {
-  houses: IHouse[] = [];
+  housesTrend: IHouseItem[] = [];
   regionCode: string = '';
   today?: Date;
 
@@ -20,7 +20,7 @@ export class HouseTrendComponent implements OnInit {
 
   ngOnInit(): void {
     this.today = new Date();
-    this.getHousesByRegion(this.route.snapshot.params['code']);
+    this.getHousesTrendByRegion(this.route.snapshot.params['code']);
   }
 
   getDayDiff(startDate: Date, endDate: Date): number {
@@ -32,11 +32,11 @@ export class HouseTrendComponent implements OnInit {
     );
   }
 
-  getHousesByRegion(code: string): void {
+  getHousesTrendByRegion(code: string): void {
     this.regionCode = code;
-    this.houseDataService.getHousesByRegion(code).subscribe({
+    this.houseDataService.getHousesTrendByRegion(code).subscribe({
       next: (data) => {
-        this.houses = data;
+        this.housesTrend = data;
       },
       error: (e) => console.error(e),
     });

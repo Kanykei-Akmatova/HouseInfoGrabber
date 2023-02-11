@@ -36,7 +36,7 @@ export class HouseRepository {
                                 FROM price
                                 GROUP BY house_code) mp ON p.house_code = mp.house_code AND p.price_date = mp.max_price_date
                   WHERE not_in_listing_date = '1900-01-01'
-                  AND region_code = $1
+                    AND region_code = $1
                   ORDER BY record_date, address `;
       const values = [regionCode];
 
@@ -51,7 +51,7 @@ export class HouseRepository {
     }
   }
 
-  async getHousesTrend() {
+  async getHousesTrend(regionCode: string) {
     try {
       this.pool = getPool();
       const sql = `SELECT region_code, h.house_code, address, p.amount, price_date
@@ -62,9 +62,11 @@ export class HouseRepository {
                     INNER JOIN price p ON h.house_code = p.house_code
                     WHERE house_code_count.house_code_count > 1
                       AND h.not_in_listing_date = '1900-01-01'
+                      AND region_code = $1
                     ORDER BY region_code, h.house_code, address, price_date DESC`;
-
-      const res = await this.pool.query(sql);
+      const values = [regionCode];
+      
+      const res = await this.pool.query(sql, values);
       await this.pool.end();
 
       return res.rows as IHouseRawData[];

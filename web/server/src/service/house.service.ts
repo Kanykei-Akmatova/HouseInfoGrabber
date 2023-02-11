@@ -16,8 +16,8 @@ export class HouseService {
     return await this.HouseRepository.getHousesByRegionCode(regionCode);
   }
 
-  async getHousesTrend() {
-    let houses = await this.HouseRepository.getHousesTrend();
+  async getHousesTrend(regionCode: string) {
+    let houses = await this.HouseRepository.getHousesTrend(regionCode);
 
     let houseMap = new Map<string, IHouseItem>();
 
