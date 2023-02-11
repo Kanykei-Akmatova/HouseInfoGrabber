@@ -1,6 +1,6 @@
-<h4>Number of houses for sale in the region</h4>
+<h2>Number of houses for sale in the regions</h2>
 <div class="table-responsive">
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -12,7 +12,9 @@
       <tr *ngFor="let item of regionStats; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ item.region_code }}</td>
-        <td>{{ item.house_count }}</td>
+        <td>
+          <a class="" routerLink="/house/list/{{ item.region_code }}">{{ item.house_count }}</a>
+        </td>
       </tr>
     </tbody>
   </table>

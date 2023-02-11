@@ -12,6 +12,10 @@ export class HouseService {
     return await this.HouseRepository.getHouses();
   }
 
+  async getHousesByRegionCode(regionCode: string) {
+    return await this.HouseRepository.getHousesByRegionCode(regionCode);
+  }
+
   async getHousesTrend() {
     let houses = await this.HouseRepository.getHousesTrend();
 

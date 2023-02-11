@@ -1,7 +1,11 @@
 // import { connect } from "../config/db.config";
 import { Pool } from "pg";
 import { getPool } from "../db/db";
-import { IHouses, IHouseRawData } from "../../../common/model/house.model";
+import {
+  IHouses,
+  IHouseRawData,
+  IHouse,
+} from "../../../common/model/house.model";
 
 export class HouseRepository {
   private pool: Pool;
@@ -21,10 +25,36 @@ export class HouseRepository {
     }
   }
 
+  async getHousesByRegionCode(regionCode: string) {
+    try {
+      const sql = `SELECT h.house_code, h.region_code, address, record_date, 
+                            bedrooms, bathrooms, not_in_listing_date, p.amount AS price, 
+                            ABS(extract(day from CURRENT_DATE::timestamp - record_date::timestamp)) AS days_since_record
+                          FROM house h
+                          INNER JOIN price p ON h.house_code = p.house_code
+                          INNER JOIN (SELECT house_code, MAX(price_date) AS max_price_date 
+                                FROM price
+                                GROUP BY house_code) mp ON p.house_code = mp.house_code AND p.price_date = mp.max_price_date
+                  WHERE not_in_listing_date = '1900-01-01'
+                  AND region_code = $1
+                  ORDER BY record_date, address `;
+      const values = [regionCode];
+
+      this.pool = getPool();
+      const res = await this.pool.query(sql, values);
+      await this.pool.end();
+      
+      const list = res.rows as IHouse[];
+      return list;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async getHousesTrend() {
     try {
       this.pool = getPool();
-      const query = `SELECT region_code, h.house_code, address, p.amount, price_date
+      const sql = `SELECT region_code, h.house_code, address, p.amount, price_date
                     FROM house h
                     INNER JOIN (SELECT house_code, COUNT(house_code) AS house_code_count
                           FROM price
@@ -34,9 +64,9 @@ export class HouseRepository {
                       AND h.not_in_listing_date = '1900-01-01'
                     ORDER BY region_code, h.house_code, address, price_date DESC`;
 
-      const res = await this.pool.query(query);
+      const res = await this.pool.query(sql);
       await this.pool.end();
-      
+
       return res.rows as IHouseRawData[];
     } catch (error) {
       console.error(error);

@@ -6,6 +6,8 @@ export interface IHouse {
   bedrooms: string;
   bathrooms: string;
   region_code: string;
+  days_since_record?: number,
+  price?: number,
 }
 
 export interface IHouses {

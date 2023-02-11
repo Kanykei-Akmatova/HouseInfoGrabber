@@ -1,0 +1,27 @@
+<h2>Houses for sale in the region <b>{{regionCode}}</b></h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Address</th>
+          <th scope="col">Price</th>
+          <th scope="col">Record Date</th>
+          <th scope="col">Days Since Record</th>
+          <th scope="col">Bedrooms</th>
+          <th scope="col">Bathrooms</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let house of houses; let i = index">
+          <th scope="row">{{ i + 1 }}</th>          
+          <td> <a target="_blank" href="https://www.google.com/maps/place/{{house.address}}">{{ house.address }}</a></td>
+          <td>${{ house.price }}</td>
+          <td>{{ house.record_date | date }}</td>
+          <td>{{ house.days_since_record }}</td>
+          <td>{{ house.bedrooms }}</td>
+          <td>{{ house.bathrooms }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

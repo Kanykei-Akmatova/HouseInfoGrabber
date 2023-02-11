@@ -16,6 +16,11 @@ export class HouseController {
 		response.send(houses);
 	}
 
+    getHousesByRegionCode = async (request: Request, response: Response) => {
+        const houses = await this.houseService.getHousesByRegionCode(request.params.code);
+		response.send(houses);
+	}
+
     getHousesTrend = async (request: Request, response: Response) => {
         const housesTrend = await this.houseService.getHousesTrend();
 		response.send(housesTrend);
@@ -24,6 +29,7 @@ export class HouseController {
 	private init() {
         this.router.get('/fetch', this.getHouses);
         this.router.get('/trend', this.getHousesTrend);
+        this.router.get('/list/:code', this.getHousesByRegionCode);
     }
 }
 

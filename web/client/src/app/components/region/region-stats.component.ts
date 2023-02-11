@@ -10,17 +10,16 @@ import { IRegionStat } from '../../../../../common/model/region.model';
 export class RegionStatsComponent implements OnInit {
   regionStats?: IRegionStat[];
 
-  constructor(private tutorialService: HouseDataService) {}
+  constructor(private houseDataService: HouseDataService) {}
 
   ngOnInit(): void {
     this.getRegionStat();
   }
 
   getRegionStat(): void {
-    this.tutorialService.getRegionStat().subscribe({
+    this.houseDataService.getRegionStat().subscribe({
       next: (data) => {
         this.regionStats = data;
-        console.log(data);
       },
       error: (e) => console.error(e),
     });
