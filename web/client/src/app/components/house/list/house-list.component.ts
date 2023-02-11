@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HouseDataService } from 'src/app/services/house-data.service';
-import { IHouse } from '../../../../../common/model/house.model';
+import { IHouse } from '../../../../../../common/model/house.model';
 
 @Component({
   selector: 'house-list',

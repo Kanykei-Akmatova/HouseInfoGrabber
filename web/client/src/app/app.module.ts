@@ -6,8 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/nav/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { RegionStatsComponent } from './components/region/region-stats.component';
-import { HouseListComponent } from './components/house/house-list.component';
+import { RegionStatsComponent } from './components/region/stats/region-stats.component';
+import { HouseListComponent } from './components/house/list/house-list.component';
+import { HouseTrendComponent } from './components/house/trend/house-trend.component';
+import { RegionHouseTrendComponent } from './components/region/trend/region-house-trend.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { HouseListComponent } from './components/house/house-list.component';
     NavbarComponent,
     HomeComponent,
     RegionStatsComponent,
-    HouseListComponent
+    HouseListComponent,
+    HouseTrendComponent,
+    RegionHouseTrendComponent
   ],
   imports: [
     BrowserModule,

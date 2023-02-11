@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HouseDataService } from '../../services/house-data.service';
-import { IRegionStat } from '../../../../../common/model/region.model';
+import { HouseDataService } from 'src/app/services/house-data.service';
+import { IRegionStat } from '../../../../../../common/model/region.model';
 
 @Component({
-  selector: 'region-stats',
-  templateUrl: './region-stats.component.html',
-  styleUrls: ['./region-stats.component.scss'],
+  selector: 'region-house-trend',
+  templateUrl: './region-house-trend.component.html',
+  styleUrls: ['./region-house-trend.component.scss']
 })
-export class RegionStatsComponent implements OnInit {
+export class RegionHouseTrendComponent implements OnInit {
   regionStats?: IRegionStat[];
 
   constructor(private houseDataService: HouseDataService) {}
