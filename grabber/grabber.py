@@ -31,7 +31,7 @@ region_list = json.loads(region_list_json)
 for region in region_list["region-list"]:
     url = region["region-url"]            
     region_code = region["region-code"]        
-    logging.info(f"Working on {region_code} region.")
+    logging.info(f"Working with {region_code} region.")
     prox = random.choice(proxy_list)
     proxy = prox['ip'] + ":" + prox['port']
 

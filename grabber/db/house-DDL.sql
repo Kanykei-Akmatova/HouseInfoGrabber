@@ -27,3 +27,10 @@ CREATE TABLE IF NOT EXISTS relisted_house
     amount numeric(10,2) NOT NULL,
     relist_date date NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS region_house_inventory
+(
+	region_code character varying(64) NOT NULL,
+	record_date date NOT NULL,
+    house_count numeric(10,2) NOT NULL
+);
