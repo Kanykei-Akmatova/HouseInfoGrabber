@@ -6,8 +6,8 @@ export interface IHouse {
   bedrooms: string;
   bathrooms: string;
   region_code: string;
-  days_since_record?: number,
-  price?: number,
+  days_since_record?: number;
+  price?: number;
 }
 
 export interface IHouses {
@@ -35,5 +35,26 @@ export interface IHouseItem {
   house_code: string;
   address: string;
   region_code: string;
-  house_price : IHousePrice[];
+  bathrooms: string;
+  bedrooms: string;
+  house_price: IHousePrice[];
+}
+
+export interface IHouseAndPrice {
+  house_code: string;
+  address: string;
+  region_code: string;
+  house_price: IHousePrice[];
+}
+
+export interface IHouseSearchedData {
+  house_code: string;
+  address: string;
+  record_date: string;
+  not_in_listing_date: string;
+  bathrooms: string;
+  bedrooms: string;
+  region_code: string;
+  amount: number;
+  price_date: string;
 }

@@ -5,6 +5,7 @@ import {
   IHouses,
   IHouseRawData,
   IHouse,
+  IHouseSearchedData,
 } from "../../../common/model/house.model";
 
 export class HouseRepository {
@@ -43,7 +44,7 @@ export class HouseRepository {
       this.pool = getPool();
       const res = await this.pool.query(sql, values);
       await this.pool.end();
-      
+
       const list = res.rows as IHouse[];
       return list;
     } catch (error) {
@@ -54,7 +55,7 @@ export class HouseRepository {
   async getHousesTrend(regionCode: string) {
     try {
       this.pool = getPool();
-      const sql = `SELECT region_code, h.house_code, address, p.amount, price_date
+      const sql = `SELECT region_code, h.house_code, address, bedrooms, bathrooms, p.amount, price_date
                     FROM house h
                     INNER JOIN (SELECT house_code, COUNT(house_code) AS house_code_count
                           FROM price
@@ -65,11 +66,31 @@ export class HouseRepository {
                       AND region_code = $1
                     ORDER BY region_code, h.house_code, address, price_date ASC`;
       const values = [regionCode];
-      
+
       const res = await this.pool.query(sql, values);
       await this.pool.end();
 
       return res.rows as IHouseRawData[];
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async searchHouseByAddress(address: string) {
+    try {
+      this.pool = getPool();
+      
+      const sql = `SELECT h.house_code, address, record_date, 
+                      not_in_listing_date, bedrooms, bathrooms, 
+                      region_code, amount, price_date
+                    FROM house h
+                    INNER JOIN price p ON h.house_code = p.house_code
+                    WHERE address ILIKE $1`;
+      const values = [`%${address}%`]      
+      const res = await this.pool.query(sql, values);
+      await this.pool.end();
+
+      return res.rows as IHouseSearchedData[];
     } catch (error) {
       console.error(error);
     }

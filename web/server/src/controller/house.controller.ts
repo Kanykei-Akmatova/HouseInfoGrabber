@@ -26,10 +26,16 @@ export class HouseController {
 		response.send(housesTrend);
 	}
 
+    searchHouseByAddress = async (request: Request, response: Response) => {
+        const houses = await this.houseService.searchHouseByAddress(request.params.address);
+		response.send(houses);
+	}
+
 	private init() {
         this.router.get('/fetch', this.getHouses);
         this.router.get('/trend/:code', this.getHousesTrend);
         this.router.get('/list/:code', this.getHousesByRegionCode);
+        this.router.get('/search/:address', this.searchHouseByAddress);
     }
 }
 

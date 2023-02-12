@@ -26,3 +26,34 @@ li.link-active a:focus {
   color: black;
   font-weight: bold;
 }
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid seagreen;
+  float: left;
+  width: 80%;
+  background: whitesmoke;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: whitesmoke;
+  color: seagreen;
+  font-size: 17px;
+  border: 1px solid seagreen;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: whitesmoke;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}

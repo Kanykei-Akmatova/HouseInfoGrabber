@@ -46,4 +46,36 @@ export class HouseService {
 
     return houseData;
   }
+
+  async searchHouseByAddress(address: string) {
+    let houses = await this.HouseRepository.searchHouseByAddress(address);
+    let houseMap = new Map<string, IHouseItem>();
+
+    houses.forEach((h) => {
+      if (houseMap.has(h.house_code)) {
+        houseMap
+          .get(h.house_code)
+          .house_price.push({ amount: h.amount, price_date: h.price_date });
+      } else {
+        let houseItem = {
+          house_code: h.house_code,
+          address: h.address,
+          bedrooms: h.bedrooms,
+          bathrooms: h.bedrooms,
+          region_code: h.region_code,          
+          house_price: [{ amount: h.amount, price_date: h.price_date }],
+        } as IHouseItem;
+
+        houseMap.set(h.house_code, houseItem);
+      }
+    });
+
+    let houseData = [] as IHouseItem[];
+    // filling house list
+    houseMap.forEach((e) => {
+      houseData.push(e);
+    });
+
+    return houseData;
+  }
 }
