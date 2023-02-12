@@ -1,8 +1,13 @@
-<h2>House trend in <b>{{ regionCode }}</b> region</h2>
+<h2>
+  House trend in <b>{{ regionCode }}</b> region
+</h2>
 <div class="table-responsive">
-  <p *ngFor="let house of housesTrend">
-    {{ house.address }}
-    <br />
-    <span *ngFor="let price of house.house_price">{{ price.amount }} : {{ price.price_date }}<br /></span>
+  <p *ngFor="let house of housesTrend; let i = index;">
+    ({{i + 1}}) {{ house.address }}
+    <house-trend-chart
+      [chartLabel]="house.address"
+      [chartLabels]="selectPriceDates(house.house_price)"
+      [chartData]="selectPrices(house.house_price)"
+    ></house-trend-chart>
   </p>
 </div>

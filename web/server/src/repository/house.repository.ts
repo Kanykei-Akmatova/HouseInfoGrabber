@@ -63,7 +63,7 @@ export class HouseRepository {
                     WHERE house_code_count.house_code_count > 1
                       AND h.not_in_listing_date = '1900-01-01'
                       AND region_code = $1
-                    ORDER BY region_code, h.house_code, address, price_date DESC`;
+                    ORDER BY region_code, h.house_code, address, price_date ASC`;
       const values = [regionCode];
       
       const res = await this.pool.query(sql, values);

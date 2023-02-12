@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HouseDataService } from 'src/app/services/house-data.service';
-import { IHouseItem } from '../../../../../../common/model/house.model';
+import { IHouseItem, IHousePrice } from '../../../../../../common/model/house.model';
 
 @Component({
   selector: 'house-trend',
   templateUrl: './house-trend.component.html',
-  styleUrls: ['./house-trend.component.scss']
+  styleUrls: ['./house-trend.component.scss'],
 })
 export class HouseTrendComponent implements OnInit {
   housesTrend: IHouseItem[] = [];
@@ -23,15 +23,6 @@ export class HouseTrendComponent implements OnInit {
     this.getHousesTrendByRegion(this.route.snapshot.params['code']);
   }
 
-  getDayDiff(startDate: Date, endDate: Date): number {
-    const msInDay = 24 * 60 * 60 * 1000;
-  
-    // 👇️ explicitly calling getTime()
-    return Math.round(
-      Math.abs(endDate.getTime() - startDate.getTime()) / msInDay,
-    );
-  }
-
   getHousesTrendByRegion(code: string): void {
     this.regionCode = code;
     this.houseDataService.getHousesTrendByRegion(code).subscribe({
@@ -40,5 +31,14 @@ export class HouseTrendComponent implements OnInit {
       },
       error: (e) => console.error(e),
     });
+  }
+
+  selectPriceDates(houseData: IHousePrice[]):string[] {
+    return houseData.map(a => new Date(a.price_date).toDateString());
+  }
+
+  selectPrices(houseData: IHousePrice[]):number[] {
+    let prices : number[] = houseData.map(a => a.amount);
+    return prices;
   }
 }

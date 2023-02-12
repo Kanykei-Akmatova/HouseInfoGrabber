@@ -18,7 +18,7 @@ export interface IHouseRawData {
   house_code: string;
   address: string;
   region_code: string;
-  amount: string;
+  amount: number;
   price_date: string;
 }
 
@@ -27,7 +27,7 @@ export interface IHousesTrend {
 }
 
 export interface IHousePrice {
-  amount: string;
+  amount: number;
   price_date: string;
 }
 
