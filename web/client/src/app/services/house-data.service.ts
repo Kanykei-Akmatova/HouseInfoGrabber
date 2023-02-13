@@ -23,4 +23,8 @@ export class HouseDataService {
   getHousesTrendByRegion(id: any): Observable<IHouseItem[]> {
     return this.http.get<IHouseItem[]>(`${baseUrl}/house/trend/${id}`);
   }
+
+  searchHouseByAddress(address: any): Observable<IHouseItem[]> {
+    return this.http.get<IHouseItem[]>(`${baseUrl}/house/search/${address}`);
+  }
 }

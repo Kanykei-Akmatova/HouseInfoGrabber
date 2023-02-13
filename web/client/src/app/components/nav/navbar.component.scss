@@ -27,7 +27,7 @@ li.link-active a:focus {
   font-weight: bold;
 }
 
-form.example input[type=text] {
+form.search-form input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid seagreen;
@@ -36,7 +36,7 @@ form.example input[type=text] {
   background: whitesmoke;
 }
 
-form.example button {
+form.search-form button {
   float: left;
   width: 20%;
   padding: 10px;
@@ -48,11 +48,11 @@ form.example button {
   cursor: pointer;
 }
 
-form.example button:hover {
+form.search-form button:hover {
   background: whitesmoke;
 }
 
-form.example::after {
+form.search-form::after {
   content: "";
   clear: both;
   display: table;

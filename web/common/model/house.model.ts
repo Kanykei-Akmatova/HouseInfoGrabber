@@ -34,6 +34,8 @@ export interface IHousePrice {
 export interface IHouseItem {
   house_code: string;
   address: string;
+  record_date: string;
+  not_in_listing_date: string;
   region_code: string;
   bathrooms: string;
   bedrooms: string;

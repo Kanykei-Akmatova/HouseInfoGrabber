@@ -60,6 +60,8 @@ export class HouseService {
         let houseItem = {
           house_code: h.house_code,
           address: h.address,
+          record_date: h.record_date,
+          not_in_listing_date: h.not_in_listing_date,
           bedrooms: h.bedrooms,
           bathrooms: h.bedrooms,
           region_code: h.region_code,          

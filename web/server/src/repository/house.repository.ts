@@ -55,7 +55,7 @@ export class HouseRepository {
   async getHousesTrend(regionCode: string) {
     try {
       this.pool = getPool();
-      const sql = `SELECT region_code, h.house_code, address, bedrooms, bathrooms, p.amount, price_date
+      const sql = `SELECT region_code, h.house_code, address, record_date, not_in_listing_date, bedrooms, bathrooms, p.amount, price_date
                     FROM house h
                     INNER JOIN (SELECT house_code, COUNT(house_code) AS house_code_count
                           FROM price
