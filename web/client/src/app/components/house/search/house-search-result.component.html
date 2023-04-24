@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Favorite</th>
           <th scope="col">Address</th>
           <th scope="col">Record Date</th>
           <th scope="col">Bedrooms</th>
@@ -13,7 +14,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let house of houses; let i = index;">
-          <th scope="row">{{ i + 1 }}</th>          
+          <td> {{ i + 1 }}</td>          
+          <td><input type = "checkbox"></td>          
           <td> <a target="_blank" href="https://www.google.com/maps/place/{{house.address}}">{{ house.address }}</a></td>
           <td>{{ house.record_date | date }}</td>       
           <td>{{ house.bedrooms }}</td>

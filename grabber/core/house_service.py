@@ -70,6 +70,7 @@ def process_house_list(region_code, listed_house_list):
     
     # process not listed anymore houses
     for db_house_code in db_house_dictionary:
-        if db_house_code not in listed_house_list_dic:
-            logging.info(f"Update not listed anymore house {db_house_code}...")
-            update_house_not_in_listing_date(db_house_code, datetime.date.today())
+        if (db_house_dictionary[db_house_code].not_in_listing_date == datetime.datetime(1900, 1, 1).date()):
+            if db_house_code not in listed_house_list_dic:
+                logging.info(f"Update not listed anymore house {db_house_code}...")
+                update_house_not_in_listing_date(db_house_code, datetime.date.today())
