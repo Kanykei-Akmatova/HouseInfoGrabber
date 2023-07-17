@@ -1,0 +1,11 @@
+<h2>
+    Inventory in <b>{{ regionCode }}</b> region
+  </h2>
+  <div class="table-responsive" *ngIf="dataLoaded">
+    <house-trend-chart
+        [chartLabel]="regionCode"
+        [chartLabels]="labels"
+        [chartData]="data"
+      ></house-trend-chart>
+  </div>
+  

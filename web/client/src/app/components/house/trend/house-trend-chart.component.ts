@@ -44,7 +44,8 @@ export class HouseTrendChartComponent implements OnInit {
 
   public lineChartLegend = true;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.lineChartData.labels = this.chartLabels;

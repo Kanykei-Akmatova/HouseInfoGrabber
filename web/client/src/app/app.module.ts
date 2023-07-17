@@ -14,6 +14,7 @@ import { HouseTrendComponent } from './components/house/trend/house-trend.compon
 import { RegionHouseTrendComponent } from './components/region/trend/region-house-trend.component';
 import { HouseTrendChartComponent } from './components/house/trend/house-trend-chart.component';
 import { HouseSearchResultComponent } from './components/house/search/house-search-result.component';
+import { RegionInventoryComponent } from './components/region/inventory/region-inventory.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HouseSearchResultComponent } from './components/house/search/house-sear
     HouseTrendComponent,
     RegionHouseTrendComponent,
     HouseTrendChartComponent,
-    HouseSearchResultComponent
+    HouseSearchResultComponent,
+    RegionInventoryComponent
   ],
   imports: [
     BrowserModule,

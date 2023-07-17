@@ -6,6 +6,7 @@
         <th scope="col">#</th>
         <th scope="col">Region Code</th>
         <th scope="col">House Count</th>
+        <th scope="col">Inventory Trend</th>
       </tr>
     </thead>
     <tbody>
@@ -14,6 +15,9 @@
         <td>{{ item.region_code }}</td>
         <td>
           <a class="" routerLink="/house/list/{{ item.region_code }}">{{ item.house_count }}</a>
+        </td>
+        <td>
+          <a class="" routerLink="/region/inventory/{{ item.region_code }}"><i class="bi bi-graph-down-arrow"></i></a>            
         </td>
       </tr>
     </tbody>

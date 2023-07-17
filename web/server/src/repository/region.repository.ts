@@ -25,4 +25,22 @@ export class RegionRepository {
       console.error(error);
     }
   }
+
+  async getRegionInventory(regionCode: string) {
+    try {
+      this.pool = getPool();
+      const query = `SELECT region_code, record_date, house_count
+                    FROM region_house_inventory
+                    WHERE region_code = $1
+                    ORDER BY region_code, record_date`;
+
+      const values = [regionCode];
+
+      const res = await this.pool.query(query, values);
+      await this.pool.end();
+      return res.rows as IRegionStat[];
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

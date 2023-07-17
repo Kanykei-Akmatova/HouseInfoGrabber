@@ -85,7 +85,8 @@ export class HouseRepository {
                       region_code, amount, price_date
                     FROM house h
                     INNER JOIN price p ON h.house_code = p.house_code
-                    WHERE address ILIKE $1`;
+                    WHERE address ILIKE $1 
+                    ORDER BY price_date`;
       const values = [`%${address}%`]      
       const res = await this.pool.query(sql, values);
       await this.pool.end();

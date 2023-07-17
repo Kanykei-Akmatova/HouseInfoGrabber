@@ -11,4 +11,8 @@ export class RegionService {
   async getRegionStats() {
     return await this.regionRepository.getRegionStats() as IRegionStat[];
   }
+
+  async getRegionInventory(regionCode: string) {
+    return await this.regionRepository.getRegionInventory(regionCode) as IRegionStat[];
+  }
 }

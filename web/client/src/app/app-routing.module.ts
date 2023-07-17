@@ -5,6 +5,7 @@ import { HouseListComponent } from './components/house/list/house-list.component
 import { HouseSearchResultComponent } from './components/house/search/house-search-result.component';
 import { HouseTrendComponent } from './components/house/trend/house-trend.component';
 import { RegionHouseTrendComponent } from './components/region/trend/region-house-trend.component';
+import { RegionInventoryComponent } from './components/region/inventory/region-inventory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'house/trend', component: RegionHouseTrendComponent },
   { path: 'house/trend/:code', component: HouseTrendComponent },
   { path: 'house/search', component: HouseSearchResultComponent },
+  { path: 'region/inventory/:code', component: RegionInventoryComponent },
   { path: '**', redirectTo: 'home' },
 ];
 

@@ -62,7 +62,7 @@ def process_house_list(region_code, listed_house_list):
             logging.info(f"LOT {index}. {house.address} : {house.price}$ house-code:{house_code} has been found.")
 
         logging.info(f"The {house_code} property has been processed.")   
-        logging.info(f"Done with {index} number house.")
+        logging.info(f"Done with #{index}  house.")
 
     house_count_in_region = len(listed_house_list) - lot_count
     logging.info(f"Insert {house_count_in_region} today's houses in {region_code} region inventory.")
@@ -72,5 +72,5 @@ def process_house_list(region_code, listed_house_list):
     for db_house_code in db_house_dictionary:
         if (db_house_dictionary[db_house_code].not_in_listing_date == datetime.datetime(1900, 1, 1).date()):
             if db_house_code not in listed_house_list_dic:
-                logging.info(f"Update not listed anymore house {db_house_code}...")
+                logging.info(f"Update not listed anymore {db_house_dictionary[db_house_code].address} : {db_house_dictionary[db_house_code].price} house.")
                 update_house_not_in_listing_date(db_house_code, datetime.date.today())

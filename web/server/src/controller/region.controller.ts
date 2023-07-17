@@ -16,8 +16,14 @@ export class RegionController {
 		response.send(houses);
 	}
 
+    getRegionInventory = async (request: Request, response: Response) => {
+        const houses = await this.regionService.getRegionInventory(request.params.code);
+		response.send(houses);
+	}
+
 	private init() {
         this.router.get('/report', this.getRegionStats);
+        this.router.get('/inventory/:code', this.getRegionInventory);
     }
 }
 
